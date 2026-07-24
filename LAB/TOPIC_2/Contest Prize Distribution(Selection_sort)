@@ -1,0 +1,46 @@
+def distribute_prizes(participants):
+    arr = participants[:]   # Copy the original list
+    n = len(arr)
+
+    # Selection Sort in descending order based on scores
+    for i in range(n - 1):
+        max_index = i
+
+        for j in range(i + 1, n):
+            if arr[j][1] > arr[max_index][1]:
+                max_index = j
+
+        if max_index != i:
+            arr[i], arr[max_index] = arr[max_index], arr[i]
+
+    # Print the ranking
+    print("Prize Ranking:")
+    rank = 1
+    for name, score in arr:
+        print(f"{rank}. {name} - {score}")
+        rank += 1
+
+    return arr
+
+
+# -----------------------------
+# Example Output
+# -----------------------------
+participants = [
+    ('Asha', 88),
+    ('Ravi', 95),
+    ('Meera', 79),
+    ('Dev', 95)
+]
+
+ranking = distribute_prizes(participants)
+
+# -----------------------------
+# Test Cases
+# -----------------------------
+scores_only = [p[1] for p in ranking]
+
+assert scores_only == sorted(scores_only, reverse=True)
+assert ranking[0][1] == 95
+
+print("All test cases passed!")
