@@ -1,0 +1,71 @@
+import random
+
+def bubble_sort_hand(hand):
+    arr = hand[:]
+    n = len(arr)
+    passes = 0
+
+    # Optimized Bubble Sort
+    for i in range(n - 1):
+        swapped = False
+        passes += 1
+
+        for j in range(n - i - 1):
+            if arr[j] > arr[j + 1]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+
+        if not swapped:
+            break
+
+    return arr, passes
+
+
+# -----------------------------
+# Example Output
+# -----------------------------
+hand = [2, 4, 6, 8, 9, 11, 13]
+
+print("Original Hand:", hand)
+
+# New card is drawn
+hand.append(7)
+
+print("Hand After New Card:", hand)
+
+final_hand, passes_incremental = bubble_sort_hand(hand)
+
+print("Sorted Hand:", final_hand)
+print("Passes Required (New Card Added):", passes_incremental)
+
+
+# Compare with shuffled hand
+shuffled = hand.copy()
+random.shuffle(shuffled)
+
+print("\nShuffled Hand:", shuffled)
+
+sorted_shuffled, passes_full = bubble_sort_hand(shuffled)
+
+print("Sorted Shuffled Hand:", sorted_shuffled)
+print("Passes Required (Full Sort):", passes_full)
+
+
+# -----------------------------
+# Test Cases
+# -----------------------------
+hand = [2, 4, 6, 8, 9, 11, 13]
+hand.append(7)
+
+final_hand, passes_incremental = bubble_sort_hand(hand)
+
+assert final_hand == sorted(hand)
+
+shuffled = hand.copy()
+random.shuffle(shuffled)
+
+_, passes_full = bubble_sort_hand(shuffled)
+
+assert passes_incremental <= passes_full
+
+print("\nAll test cases passed!")
