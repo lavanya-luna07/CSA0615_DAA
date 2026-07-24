@@ -1,0 +1,55 @@
+def bubble_sort_queue(queue):
+    # Priority values (lower number = higher priority)
+    priority = {
+        "ambulance": 1,
+        "bus": 2,
+        "car": 3
+    }
+
+    arr = queue[:]   # Create a copy
+    n = len(arr)
+
+    # Bubble Sort based on priority
+    for i in range(n - 1):
+        swapped = False
+
+        for j in range(n - i - 1):
+            if priority[arr[j]] > priority[arr[j + 1]]:
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+
+        if not swapped:
+            break
+
+    return arr
+
+
+# -----------------------------
+# Example Output
+# -----------------------------
+queue = ['car', 'car', 'bus']
+
+print("Original Queue:", queue)
+
+# New vehicle arrives
+queue.append('ambulance')
+
+print("Queue After New Vehicle:", queue)
+
+result = bubble_sort_queue(queue)
+
+print("Priority Queue:", result)
+
+# -----------------------------
+# Test Cases
+# -----------------------------
+queue = ['car', 'car', 'bus']
+queue.append('ambulance')
+
+result = bubble_sort_queue(queue)
+
+assert result == ['ambulance', 'bus', 'car', 'car']
+
+assert bubble_sort_queue(['ambulance']) == ['ambulance']
+
+print("All test cases passed!")
