@@ -1,0 +1,43 @@
+def reorder_shelf(book_ids):
+    arr = book_ids[:]      # Copy the original list
+    n = len(arr)
+    moves = 0
+
+    # Selection Sort
+    for i in range(n - 1):
+        min_index = i
+
+        for j in range(i + 1, n):
+            if arr[j] < arr[min_index]:
+                min_index = j
+
+        if min_index != i:
+            arr[i], arr[min_index] = arr[min_index], arr[i]
+            moves += 1
+
+    return arr, moves
+
+
+# -----------------------------
+# Example Output
+# -----------------------------
+books = [305, 102, 250, 118, 199, 400, 101]
+
+print("Original Shelf:", books)
+
+ordered, moves = reorder_shelf(books)
+
+print("Reordered Shelf:", ordered)
+print("Physical Moves:", moves)
+
+# -----------------------------
+# Test Cases
+# -----------------------------
+ordered, moves = reorder_shelf([305, 102, 250, 118, 199, 400, 101])
+assert ordered == sorted([305, 102, 250, 118, 199, 400, 101])
+assert moves <= len(ordered) - 1
+
+ordered2, moves2 = reorder_shelf([100, 200, 300])
+assert moves2 == 0
+
+print("All test cases passed!")
